@@ -1,63 +1,68 @@
-<!DOCTYPE html>
-{% load static %}
-<html>
-<head>
-	<title>Slide Navbar</title>
-    <link rel="stylesheet" href="{% static 'assets/css/auth/login.css' %}">
-</head>
-<body>
-	<div class='brand'>
-  <a href='https://www.jamiecoulter.co.uk' target='_blank'>
-    <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/logo.png'>
-  </a>
-</div>
-<div class='login'>
-  <div class='login_title'>
-    <span>Login to your account</span>
-  </div>
-  <div class='login_fields'>
-    <div class='login_fields__user'>
-      <div class='icon'>
-        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/user_icon_copy.png'>
-      </div>
-      <input placeholder='Username' type='text'>
-        <div class='validation'>
-          <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/tick.png'>
-        </div>
-      </input>
-    </div>
-    <div class='login_fields__password'>
-      <div class='icon'>
-        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/lock_icon_copy.png'>
-      </div>
-      <input placeholder='Password' type='password'>
-      <div class='validation'>
-        <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/tick.png'>
-      </div>
-    </div>
-    <div class='login_fields__submit'>
-      <input type='submit' value='Log In'>
-      <div class='forgot'>
-        <a href='#'>Forgotten password?</a>
-      </div>
-    </div>
-  </div>
-  <div class='success'>
-    <h2>Authentication Success</h2>
-    <p>Welcome back</p>
-  </div>
-  <div class='disclaimer'>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper laoreet placerat. Nullam semper auctor justo, rutrum posuere odio vulputate nec.</p>
-  </div>
-</div>
-<div class='authent'>
-  <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/puff.svg'>
-  <p>Authenticating...</p>
-</div>
-<div class='love'>
-  <p>Made with <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/love_copy.png" /> by <a href='https://www.jamiecoulter.co.uk' target='_blank'> Jcoulterdesign </a></p>
-</div>
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Login 10</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script src="{% static 'assets/js/auth/login.js' %}"></script>
-</body>
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="css/style.css">
+
+	</head>
+	<body class="img js-fullheight" style="background-image: url(images/bg.jpg);">
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Login #10</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+		      	<h3 class="mb-4 text-center">Have an account?</h3>
+		      	<form action="#" class="signin-form">
+		      		<div class="form-group">
+		      			<input type="text" class="form-control" placeholder="Username" required>
+		      		</div>
+	            <div class="form-group">
+	              <input id="password-field" type="password" class="form-control" placeholder="Password" required>
+	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+	            </div>
+	            <div class="form-group">
+	            	<button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+	            </div>
+	            <div class="form-group d-md-flex">
+	            	<div class="w-50">
+		            	<label class="checkbox-wrap checkbox-primary">Remember Me
+									  <input type="checkbox" checked>
+									  <span class="checkmark"></span>
+									</label>
+								</div>
+								<div class="w-50 text-md-right">
+									<a href="#" style="color: #fff">Forgot Password</a>
+								</div>
+	            </div>
+	          </form>
+	          <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+	          <div class="social d-flex text-center">
+	          	<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+	          	<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
+	          </div>
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+
+	</body>
 </html>
+
