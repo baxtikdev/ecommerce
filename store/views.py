@@ -11,3 +11,15 @@ def cart(request):
 
 def wishlist(request):
     return render(request, 'wishlist.html')
+
+def checkout(request):
+    return render(request, 'checkout.html')
+
+def category(request):
+    return render(request, 'category-market.html')
+
+def contact(request):
+    return render(request, 'contact.html')
+
+def log_in(request):
+    return render(request, 'auth/login.html')

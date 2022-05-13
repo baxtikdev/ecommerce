@@ -61,7 +61,7 @@
                                             </div><!-- End .header-menu -->
                                         </div>
                                     </li>
-                                    <li><a href="#signin-modal" data-toggle="modal">Sign in</a> | <a href="#signin-modal" data-toggle="modal">Sign up</a></li>
+                                    <li><a href="{% url 'log_in' %}">Sign in</a> | <a href="#signin-modal" data-toggle="modal">Sign up</a></li>
                                 </ul>
                             </li>
                         </ul><!-- End .top-menu -->
@@ -167,7 +167,7 @@
 
                                 <div class="dropdown-cart-action">
                                     <a href="{% url 'cart' %}" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                    <a href="{% url 'checkout' %}" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .dropdown-cart-total -->
                             </div><!-- End .dropdown-menu -->
                         </div><!-- End .cart-dropdown -->
@@ -237,7 +237,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="contact-2.html">Contact</a>
+                                    <a href="{% url 'contact' %}">Contact</a>
                                 </li>
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
@@ -358,14 +358,6 @@
                         <ul class="mobile-menu">
                             <li class="active">
                                 <a href="index.html">Home</a>
-                            </li>
-                            <li>
-                                <a href="category.html">Shop</a>
-                                <ul>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                </ul>
                             </li>
                             <li>
                                 <a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a>
