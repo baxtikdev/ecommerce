@@ -29,16 +29,20 @@ class Product(models.Model):
         ('Large','Large'),
         ('Extra large','Extra large'),
     )
-
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=100)
     price = models.FloatField()
     image = models.ImageField(upload_to='Product')
     description = models.TextField()
     color = models.ManyToManyField(Color)
-    size = models.CharField(max_length=30,choices=choice)
-    quantity = models.IntegerField(default=1)
+    size = models.CharField(max_length=30,choices=choice,null=True,blank=True)
+    quantity = models.IntegerField(default=0)
     reyting = models.FloatField(default=0)
     discount = models.FloatField(default=0)
+
+    @property
+    def with_discount(self):
+        return self.price*(1 - self.discount / 100)
 
     @property
     def imageURL(self):
