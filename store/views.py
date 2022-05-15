@@ -5,10 +5,14 @@ from .models import *
 
 def index(request):
     products = Product.objects.all()
-    return render(request, 'index.html',context={'products':products})
+    categories = Category.objects.all().order_by('name')
+    return render(request, 'index.html',context={'products':products, 'categories':categories})
 
-def product_info(request):
-    return render(request, 'product-extended.html')
+def product_info(request,id):
+    product = Product.objects.get(id=id)
+    print(product.color.all())
+    product_like = Product.objects.filter(category__product=product)
+    return render(request, 'product-extended.html', {'product': product,'product_like':product_like})
 
 def cart(request):
     return render(request, 'cart.html')
@@ -19,8 +23,11 @@ def wishlist(request):
 def checkout(request):
     return render(request, 'checkout.html')
 
-def category(request):
-    return render(request, 'category-market.html')
+def category(request,id):
+    products_discount = Product.objects.filter(category_id=id,discount__isnull=False)
+    products = Product.objects.filter(category_id=id,discount__isnull=True)
+    categories = Category.objects.all().order_by('name')
+    return render(request, 'category-market.html',{'products':products, 'categories':categories, 'products_discount':products_discount,})
 
 def contact(request):
     return render(request, 'contact.html')
@@ -39,12 +46,20 @@ def log_in(request):
 
 def register(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
+        # form = RegistrationForm(request.POST)
+        # if form.is_valid():
+            # form.save()
+        try:
             username = request.POST['username']
-            password = request.POST['password1']
-            user = authenticate(request,username=username,password=password)
+            email = request.POST['email']
+            password1 = request.POST['password1']
+            password2 = request.POST['password2']
+        except:
+            return redirect('register')
+        if password2==password1:
+            User.objects.create_user(username=username,email=email,password=password1)
+
+            user = authenticate(request,username=username,password=password1)
             if user:
                 login(request,user)
                 return redirect('index')
