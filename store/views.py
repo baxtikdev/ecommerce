@@ -1,25 +1,45 @@
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm,LoginForm
 from django.contrib.auth import authenticate,login,logout
 from .models import *
+import json
+from pprint import pprint
 
 def index(request):
     products = Product.objects.all()
     categories = Category.objects.all().order_by('name')
     return render(request, 'index.html',context={'products':products, 'categories':categories})
 
+def product_by(request):
+    data = json.loads(request.body)
+    print(data['sort'])
+    sort = data['sort']
+    if sort=='reyting':
+        products = Product.objects.all().order_by('reyting')
+
+    elif sort=='onsale':
+        products = Product.objects.filter(quantity__isnull=False)
+
+    pd = [{"id": p.id, "name": p.name, 'image': p.imageURL, 'price': p.price, 'discount': p.with_discount,"category": p.category.name,"reyting": p.reyting} for p in products]
+
+    return JsonResponse({"products":pd})
+
 def product_info(request,id):
     product = Product.objects.get(id=id)
-    print(product.color.all())
     product_like = Product.objects.filter(category__product=product)
     return render(request, 'product-extended.html', {'product': product,'product_like':product_like})
 
+@login_required(login_url="log_in")
 def cart(request):
     return render(request, 'cart.html')
 
+@login_required(login_url="log_in")
 def wishlist(request):
     return render(request, 'wishlist.html')
 
+@login_required(login_url="log_in")
 def checkout(request):
     return render(request, 'checkout.html')
 
