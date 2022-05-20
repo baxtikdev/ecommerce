@@ -1,0 +1,200 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block category%}
+        <div class="header-left">
+            <div class="dropdown category-dropdown">
+                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
+                    Categories <i class="icon-angle-down"></i>
+                </a>
+
+                <div class="dropdown-menu">
+                    <nav class="side-nav">
+                        <ul class="menu-vertical sf-arrows">
+                            {% for c in categories %}
+                                <li class="item-lead"><a href="{% url 'category' c.id %}">{{ c.name }}</a></li>
+                            {% endfor %}
+                        </ul><!-- End .menu-vertical -->
+                    </nav><!-- End .side-nav -->
+                </div><!-- End .dropdown-menu -->
+            </div><!-- End .category-dropdown -->
+        </div><!-- End .header-left -->
+{% endblock category %}
+
+{% block content %}
+
+        <main class="main">
+
+            <div class="container featured">
+                <ul class="nav nav-pills nav-border-anim nav-big justify-content-center mb-3" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active">Results</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content tab-content-carousel">
+                    <div class="tab-pane p-0 fade show active" id="products-featured-tab" role="tabpanel" aria-labelledby="products-featured-link">
+                        <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                            data-owl-options='{
+                                "nav": true, 
+                                "dots": true,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "0": {
+                                        "items":2
+                                    },
+                                    "600": {
+                                        "items":2
+                                    },
+                                    "992": {
+                                        "items":3
+                                    },
+                                    "1200": {
+                                        "items":4
+                                    }
+                                }
+                            }'>
+                                {% for product in products %}
+                                    <div class="product product-2">
+
+                                        <figure class="product-media">
+                                            {% if product.with_discount %}
+                                                <span class="product-label label-new">Sale</span>
+                                            {% endif %}
+                                            <a href="{% url 'product_info' product.id %}">
+                                                <img src="{{ product.imageURL }}" alt="Product image" class="product-image">
+                                            </a>
+
+                                            <div class="product-action-vertical">
+                                                <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>Add to wishlist</span></a>
+                                            </div><!-- End .product-action -->
+
+                                            <div class="product-action product-action-dark">
+                                                <a onclick="add_cart({{ product.id }})" class="btn-product btn-cart" title="Add to cart"><span>Add to cart</span></a>
+                                                <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>Quick view</span></a>
+                                            </div><!-- End .product-action -->
+                                        </figure><!-- End .product-media -->
+
+                                        <div class="product-body">
+                                            <div class="product-cat">
+                                                <a href="{% url 'product_info' product.id %}">{{ product.category.name }}</a>
+                                            </div><!-- End .product-cat -->
+                                            <h3 class="product-title"><a href="{% url 'product_info' product.id %}">{{ product.name }}</a></h3><!-- End .product-title -->
+                                            <div class="product-price">
+                                                $ <strike style="margin-right: 5px">{{ product.price }}</strike>
+                                                {% if product.discount %}
+                                                    <p style="color: red; font-weight: bold">${{ product.with_discount }}</p>
+                                                {% endif %}
+                                            </div><!-- End .product-price -->
+                                            <div class="ratings-container">
+                                                <div class="ratings">
+                                                    <div class="ratings-val" style="width: 60%;"></div><!-- End .ratings-val -->
+                                                </div><!-- End .ratings -->
+                                                <span class="ratings-text">( {{ product.reyting }} Reviews )</span>
+                                            </div><!-- End .rating-container -->
+                                        </div><!-- End .product-body -->
+
+                                    </div><!-- End .product -->
+                                {% endfor %}
+
+                        </div><!-- End .owl-carousel -->
+                    </div><!-- .End .tab-pane -->
+                    <div class="tab-pane p-0 fade show" id="products-sale-tab" role="tabpanel" aria-labelledby="products-sale-link">
+                        <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                            data-owl-options='{
+                                "nav": true,
+                                "dots": true,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "0": {
+                                        "items":2
+                                    },
+                                    "600": {
+                                        "items":2
+                                    },
+                                    "992": {
+                                        "items":3
+                                    },
+                                    "1200": {
+                                        "items":4
+                                    }
+                                }
+                            }'>
+                                {% for product in products %}
+                                    <div class="product product-2">
+
+                                        <figure class="product-media">
+                                            {% if product.with_discount %}
+                                                <span class="product-label label-new">Sale</span>
+                                            {% endif %}
+                                            <a href="{% url 'product_info' product.id %}">
+                                                <img src="{{ product.imageURL }}" alt="Product image" class="product-image">
+                                            </a>
+
+                                            <div class="product-action-vertical">
+                                                <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>Add to wishlist</span></a>
+                                            </div><!-- End .product-action -->
+
+                                            <div class="product-action product-action-dark">
+                                                <a href="#" class="btn-product btn-cart" title="Add to cart"><span>Add to cart</span></a>
+                                                <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>Quick view</span></a>
+                                            </div><!-- End .product-action -->
+                                        </figure><!-- End .product-media -->
+
+                                        <div class="product-body">
+                                            <div class="product-cat">
+                                                <a href="{% url 'product_info' product.id %}">{{ product.category.name }}</a>
+                                            </div><!-- End .product-cat -->
+                                            <h3 class="product-title"><a href="{% url 'product_info' product.id %}">{{ product.name }}</a></h3><!-- End .product-title -->
+                                            <div class="product-price">
+                                                $ <strike style="margin-right: 5px">{{ product.price }}</strike>
+                                                {% if product.discount %}
+                                                    <p style="color: red; font-weight: bold">${{ product.with_discount }}</p>
+                                                {% endif %}
+                                            </div><!-- End .product-price -->
+                                            <div class="ratings-container">
+                                                <div class="ratings">
+                                                    <div class="ratings-val" style="width: 60%;"></div><!-- End .ratings-val -->
+                                                </div><!-- End .ratings -->
+                                                <span class="ratings-text">( {{ product.reyting }} Reviews )</span>
+                                            </div><!-- End .rating-container -->
+                                        </div><!-- End .product-body -->
+
+                                    </div><!-- End .product -->
+                                {% endfor %}
+
+                        </div><!-- End .owl-carousel -->
+                    </div><!-- .End .tab-pane -->
+                    <div class="tab-pane p-0 fade" id="products-top-tab" role="tabpanel" aria-labelledby="products-top-link">
+                        <div id="reyting" style="display: flex;" class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                            data-owl-options='{
+                                "nav": true,
+                                "dots": true,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "0": {
+                                        "items":2
+                                    },
+                                    "600": {
+                                        "items":2
+                                    },
+                                    "992": {
+                                        "items":3
+                                    },
+                                    "1200": {
+                                        "items":4
+                                    }
+                                }
+                            }'>
+
+                        </div><!-- End .owl-carousel -->
+                    </div><!-- .End .tab-pane -->
+                </div><!-- End .tab-content -->
+            </div><!-- End .container -->
+
+        </main><!-- End .main -->
+
+{% endblock content %}

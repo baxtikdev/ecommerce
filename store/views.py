@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm,LoginForm
@@ -12,12 +13,18 @@ def index(request):
     categories = Category.objects.all().order_by('name')
     return render(request, 'index.html',context={'products':products, 'categories':categories})
 
+def search(request):
+    if request.method=='POST':
+        key = str(request.POST['search'])
+        products = Product.objects.filter(Q(name__contains=key) | Q(category__name__contains=key))
+    return render(request,'search.html',{'products':set(products)})
+
 def product_by(request):
     data = json.loads(request.body)
     print(data['sort'])
     sort = data['sort']
     if sort=='reyting':
-        products = Product.objects.all().order_by('reyting')
+        products = Product.objects.all().order_by('-reyting')
 
     elif sort=='onsale':
         products = Product.objects.filter(quantity__isnull=False)
@@ -33,7 +40,28 @@ def product_info(request,id):
 
 @login_required(login_url="log_in")
 def cart(request):
-    return render(request, 'cart.html')
+    cart_products = Cart_products.objects.filter(card__user=request.user)
+    return render(request, 'cart.html',{"products":cart_products})
+
+def add_to_cart(request):
+    data = json.loads(request.body)
+    id = data['id']
+    product = Product.objects.get(id=id)
+    try:
+        cart = Card.objects.get(user=request.user)
+    except:
+        cart = Card.objects.create(user=request.user)
+    cart.product.add(product)
+    cart.save()
+    try:
+        cart_products = Cart_products.objects.get(card_id=cart.id,product_id=id)
+        cart_products.add
+        cart_products.summa
+    except:
+        cart_products = Cart_products.objects.create(card_id=cart.id,product_id=id)
+        cart_products.summa
+    return JsonResponse({'message':'Succuss'})
+
 
 @login_required(login_url="log_in")
 def wishlist(request):

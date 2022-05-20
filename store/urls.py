@@ -5,7 +5,14 @@ urlpatterns = [
     path('',index,name='index'),
     path('product_by/',product_by,name='product_by'),
     path('product_info/<int:id>/',product_info,name='product_info'),
+
+    #Card
     path('cart/',cart,name='cart'),
+    path('add_to_cart/',add_to_cart,name='add_to_cart'),
+
+    #search
+    path('search/',search,name='search'),
+
     path('wishlist/',wishlist,name='wishlist'),
     path('category/<int:id>/',category,name='category'),
     path('contact/',contact,name='contact'),

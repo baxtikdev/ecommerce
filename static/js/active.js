@@ -18,7 +18,7 @@ function order_by (sort){
             html = ``
             for(let i=0;i<products.length;i++){
                 html += `
-                    <div class="product product-2">
+                    <div style="width: 296px; margin-right: 20px" class="product product-2">
                         <figure class="product-media">
     
                                 <span class="product-label label-new">Sale</span>
@@ -60,6 +60,25 @@ function order_by (sort){
             `
             document.getElementById('reyting').innerHTML = html
             }
+        })
+    })
+}
+
+function add_cart (id){
+    url=`/add_to_cart/`
+    fetch(url,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRFToken':csrftoken,
+        },
+        body:JSON.stringify({
+            'id':id
+        })
+        })
+        .then((response)=>{
+        response.json().then((data) => {
+            console.log('Data keldi',data)
         })
     })
 }

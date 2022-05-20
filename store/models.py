@@ -58,7 +58,7 @@ class Product(models.Model):
 
 class Card(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    product = models.ManyToManyField(Product)
+    product = models.ManyToManyField(Product,null=True,blank=True)
     total_price = models.FloatField(default=0)
 
     @property
@@ -66,9 +66,28 @@ class Card(models.Model):
         self.total_price = sum([i.price*(1-i.discount/100) for i in self.product.all()])
         self.save()
 
-
     def __str__(self):
         return f"{self.user.username} | {self.total_price}"
+
+class Cart_products(models.Model):
+    card = models.ForeignKey(Card,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    total = models.FloatField(default=0)
+
+    @property
+    def summa(self):
+        self.total = self.quantity * self.product.price
+        self.save()
+        return self.total
+
+    @property
+    def add(self):
+        self.quantity = self.quantity + 1
+        self.save()
+
+    def __str__(self):
+        return f"{self.card.user.username} | {self.product.name} | {self.total}"
 
 class Wishlist(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)

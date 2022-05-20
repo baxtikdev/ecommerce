@@ -158,7 +158,7 @@
 
                 <div class="tab-content tab-content-carousel">
                     <div class="tab-pane p-0 fade show active" id="products-featured-tab" role="tabpanel" aria-labelledby="products-featured-link">
-                        <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                        <div class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl"
                             data-owl-options='{
                                 "nav": true, 
                                 "dots": true,
@@ -195,7 +195,7 @@
                                             </div><!-- End .product-action -->
 
                                             <div class="product-action product-action-dark">
-                                                <a href="#" class="btn-product btn-cart" title="Add to cart"><span>Add to cart</span></a>
+                                                <a onclick="add_cart({{ product.id }})" class="btn-product btn-cart" title="Add to cart"><span>Add to cart</span></a>
                                                 <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>Quick view</span></a>
                                             </div><!-- End .product-action -->
                                         </figure><!-- End .product-media -->
@@ -291,8 +291,8 @@
 
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
-                    <div class="tab-pane p-0 fade show active" id="products-top-tab" role="tabpanel" aria-labelledby="products-top-link">
-                        <div id="reyting" class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                    <div class="tab-pane p-0 fade" id="products-top-tab" role="tabpanel" aria-labelledby="products-top-link">
+                        <div id="reyting" style="display: flex;" class="owl-carousel owl-full carousel-equal-height carousel-with-shadow" data-toggle="owl"
                             data-owl-options='{
                                 "nav": true,
                                 "dots": true,
@@ -313,7 +313,6 @@
                                     }
                                 }
                             }'>
-
 
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
