@@ -41,7 +41,8 @@ def product_info(request,id):
 @login_required(login_url="log_in")
 def cart(request):
     cart_products = Cart_products.objects.filter(card__user=request.user)
-    return render(request, 'cart.html',{"products":cart_products})
+    cart = Card.objects.get(user=request.user)
+    return render(request, 'cart.html',{"products":cart_products,'total':cart.total,'subtotal':sum(cart_products.values_list('total',flat=True))})
 
 def add_to_cart(request):
     data = json.loads(request.body)
@@ -62,10 +63,24 @@ def add_to_cart(request):
         cart_products.summa
     return JsonResponse({'message':'Succuss'})
 
+def add_wishlist(request):
+    id = json.loads(request.body)['id']
+    try:
+        user_wishlist = Wishlist.objects.get(user=request.user)
+    except:
+        user_wishlist = Wishlist.objects.create(user=request.user)
+    product = Product.objects.get(id=id)
+    print()
+    if product in user_wishlist.product.all():
+        user_wishlist.product.remove(product)
+        return JsonResponse({'status':"Ok"})
+    user_wishlist.product.add(product)
+    return JsonResponse({'status':"Ok"})
 
 @login_required(login_url="log_in")
 def wishlist(request):
-    return render(request, 'wishlist.html')
+    wishlist = Wishlist.objects.get(user=request.user)
+    return render(request, 'wishlist.html',context={'wishlist':wishlist})
 
 @login_required(login_url="log_in")
 def checkout(request):

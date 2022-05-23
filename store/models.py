@@ -39,7 +39,7 @@ class Product(models.Model):
     size = models.CharField(max_length=30,choices=choice,null=True,blank=True)
     quantity = models.IntegerField(default=0)
     reyting = models.FloatField(default=0)
-    discount = models.FloatField(null=True,blank=True)
+    discount = models.FloatField(default=0,null=True,blank=True)
 
     @property
     def with_discount(self):
@@ -63,8 +63,9 @@ class Card(models.Model):
 
     @property
     def total(self):
-        self.total_price = sum([i.price*(1-i.discount/100) for i in self.product.all()])
+        self.total_price = sum([i.summa for i in Cart_products.objects.all()])
         self.save()
+        return self.total_price
 
     def __str__(self):
         return f"{self.user.username} | {self.total_price}"
@@ -77,13 +78,19 @@ class Cart_products(models.Model):
 
     @property
     def summa(self):
-        self.total = self.quantity * self.product.price
+        self.total = self.quantity * self.product.price*(1 - self.product.discount/100)
         self.save()
         return self.total
+
 
     @property
     def add(self):
         self.quantity = self.quantity + 1
+        self.save()
+
+    @property
+    def sub(self):
+        self.quantity = self.quantity - 1
         self.save()
 
     def __str__(self):
@@ -92,6 +99,7 @@ class Cart_products(models.Model):
 class Wishlist(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     product = models.ManyToManyField(Product)
+
 
     def __str__(self):
         return f"{self.id} | {self.user.username}"

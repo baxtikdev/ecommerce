@@ -82,3 +82,23 @@ function add_cart (id){
         })
     })
 }
+
+function add_wishlist (id){
+    url=`/add_wishlist/`
+    fetch(url,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRFToken':csrftoken,
+        },
+        body:JSON.stringify({
+            'id':id
+        })
+        })
+        .then((response)=>{
+        response.json().then((data) => {
+            window.alert("Qo'shildi")
+            console.log(data['status'])
+        })
+    })
+}

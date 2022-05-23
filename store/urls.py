@@ -10,6 +10,9 @@ urlpatterns = [
     path('cart/',cart,name='cart'),
     path('add_to_cart/',add_to_cart,name='add_to_cart'),
 
+    #Wishlist
+    path('add_wishlist/',add_wishlist,name='add_wishlist'),
+
     #search
     path('search/',search,name='search'),
 

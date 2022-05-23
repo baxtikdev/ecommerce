@@ -1,25 +1,9 @@
 {% extends 'main.html' %}
 {% load static %}
 
-{% block category%}
-        <div class="header-left">
-            <div class="dropdown category-dropdown">
-                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
-                    Categories <i class="icon-angle-down"></i>
-                </a>
-
-                <div class="dropdown-menu">
-                    <nav class="side-nav">
-                        <ul class="menu-vertical sf-arrows">
-                            {% for c in categories %}
-                                <li class="item-lead"><a href="{% url 'category' c.id %}">{{ c.name }}</a></li>
-                            {% endfor %}
-                        </ul><!-- End .menu-vertical -->
-                    </nav><!-- End .side-nav -->
-                </div><!-- End .dropdown-menu -->
-            </div><!-- End .category-dropdown -->
-        </div><!-- End .header-left -->
-{% endblock category %}
+{#{% block category%}#}
+{#        #}
+{#{% endblock category %}#}
 
 {% block content %}
 
@@ -191,7 +175,7 @@
                                             </a>
 
                                             <div class="product-action-vertical">
-                                                <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>Add to wishlist</span></a>
+                                                <a style="cursor:pointer;" onclick="add_wishlist({{ product.id }})" class="btn-product-icon btn-wishlist btn-expandable"><span>Add to wishlist{{ product.id }}</span></a>
                                             </div><!-- End .product-action -->
 
                                             <div class="product-action product-action-dark">

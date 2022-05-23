@@ -145,32 +145,39 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 {% if request.user.is_authenticated %}
                                 <div class="dropdown-cart-products">
+                                    {% for p in products %}
+                                        <div class="product">
+                                            <div class="product-cart-details">
+                                                <h4 class="product-title">
+                                                    <a href="{% url 'product_info' p.id %}">Beige knitted elastic runner shoes</a>
+                                                </h4>
 
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Beige knitted elastic runner shoes</a>
-                                            </h4>
+                                                <span class="cart-product-info">
+                                                    <span class="cart-product-qty">1</span>
+                                                    x $
+                                                    {% if p.with_discount %}
+                                                        {{ p.with_discount }}
+                                                    {% else %}
+                                                        {{ p.price }}
+                                                    {% endif %}
+                                                </span>
+                                            </div><!-- End .product-cart-details -->
 
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
+                                            <figure class="product-image-container">
+                                                <a href="{% url 'product_info' p.id %}" class="product-image">
+                                                    <img src="{{ p.imageURL }}" alt="product">
+                                                </a>
+                                            </figure>
+                                            <a class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                        </div>
+                                    {% endfor %}
 
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="{% static "assets/images/products/cart/product-1.jpg" %}" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    </div>
                                 </div><!-- End .cart-product -->
 
                                 <div class="dropdown-cart-total">
                                     <span>Total</span>
 
-                                    <span class="cart-total-price">$160.00</span>
+                                    <span class="cart-total-price">$ {{ total }}</span>
                                 </div><!-- End .dropdown-cart-total -->
                                 {% endif %}
                                 <div class="dropdown-cart-action">
@@ -189,9 +196,23 @@
 
             <div class="header-bottom sticky-header">
                 <div class="container">
-                    {% block category %}
+                    <div class="header-left">
+            <div class="dropdown category-dropdown">
+                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
+                    Categories <i class="icon-angle-down"></i>
+                </a>
 
-                    {% endblock category %}
+                <div class="dropdown-menu">
+                    <nav class="side-nav">
+                        <ul class="menu-vertical sf-arrows">
+                            {% for c in categories %}
+                                <li class="item-lead"><a href="{% url 'category' c.id %}">{{ c.name }}</a></li>
+                            {% endfor %}
+                        </ul><!-- End .menu-vertical -->
+                    </nav><!-- End .side-nav -->
+                </div><!-- End .dropdown-menu -->
+            </div><!-- End .category-dropdown -->
+        </div><!-- End .header-left -->
 
                     <div class="header-center">
                         <nav class="main-nav">
@@ -432,6 +453,8 @@
     <script src="{% static "assets/js/main.js" %}"></script>
     <script src="{% static "assets/js/demos/demo-3.js" %}"></script>
     <script src="{% static "js/active.js" %}"></script>
+
+    <script src=https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js></script>
 </body>
 
 
