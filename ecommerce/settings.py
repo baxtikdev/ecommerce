@@ -71,6 +71,10 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'store.contex_pro.context_process',
             ],
+        'libraries': {
+                'temp_tags': 'store.templatetags.temp_tags',
+
+            }
         },
     },
 ]

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load temp_tags %}
 
 <head>
     <meta charset="UTF-8">
@@ -137,23 +138,29 @@
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                 <div class="icon">
                                     <i class="icon-shopping-cart"></i>
-                                    <span class="cart-count">2</span>
+                                    {% if request.user.is_authenticated %}
+                                        {% if count %}
+                                            <span id="product_quantity" class="cart-count">{{ count }}</span>
+                                        {% else %}
+                                            <span id="product_quantity" class="cart-count">0</span>
+                                        {% endif %}
+                                    {% endif %}
                                 </div>
                                 <p>Cart</p>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
                                 {% if request.user.is_authenticated %}
-                                <div class="dropdown-cart-products">
-                                    {% for p in products %}
+                                <div id="dropdown-products" class="dropdown-cart-products">
+                                    {% for p in card_products %}
                                         <div class="product">
                                             <div class="product-cart-details">
                                                 <h4 class="product-title">
-                                                    <a href="{% url 'product_info' p.id %}">Beige knitted elastic runner shoes</a>
+                                                    <a href="{% url 'product_info' p.id %}">{{ p.name }}</a>
                                                 </h4>
 
                                                 <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span>
+                                                    <span class="cart-product-qty">{% product_quantity p.id request.user %}</span>
                                                     x $
                                                     {% if p.with_discount %}
                                                         {{ p.with_discount }}

@@ -6,7 +6,6 @@ from .forms import RegistrationForm,LoginForm
 from django.contrib.auth import authenticate,login,logout
 from .models import *
 import json
-from pprint import pprint
 
 def index(request):
     products = Product.objects.all()
@@ -50,6 +49,7 @@ def add_to_cart(request):
     product = Product.objects.get(id=id)
     try:
         cart = Card.objects.get(user=request.user)
+
     except:
         cart = Card.objects.create(user=request.user)
     cart.product.add(product)
@@ -61,7 +61,8 @@ def add_to_cart(request):
     except:
         cart_products = Cart_products.objects.create(card_id=cart.id,product_id=id)
         cart_products.summa
-    return JsonResponse({'message':'Succuss'})
+    prod = [{'id':p.id, 'name':p.name, 'image':p.imageURL,'price':p.with_discount,'quantity':Cart_products.objects.get(card_id=cart.id,product_id=p.id).quantity} for p in cart.product.all()]
+    return JsonResponse({'count':cart.product.all().count(),'products':prod})
 
 def add_wishlist(request):
     id = json.loads(request.body)['id']
@@ -70,12 +71,17 @@ def add_wishlist(request):
     except:
         user_wishlist = Wishlist.objects.create(user=request.user)
     product = Product.objects.get(id=id)
-    print()
     if product in user_wishlist.product.all():
         user_wishlist.product.remove(product)
         return JsonResponse({'status':"Ok"})
     user_wishlist.product.add(product)
-    return JsonResponse({'status':"Ok"})
+    return JsonResponse({'quantity':cart.product})
+
+def delete_wishlist(request):
+    id = json.loads(request.body)['id']
+    user_wishlist = Wishlist.objects.get(user=request.user)
+    user_wishlist.product.remove(Product.objects.get(id=id))
+    return JsonResponse({'status': "Ok"})
 
 @login_required(login_url="log_in")
 def wishlist(request):

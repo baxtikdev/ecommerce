@@ -12,6 +12,7 @@ urlpatterns = [
 
     #Wishlist
     path('add_wishlist/',add_wishlist,name='add_wishlist'),
+    path('delete_wishlist/',delete_wishlist,name='delete_wishlist'),
 
     #search
     path('search/',search,name='search'),
