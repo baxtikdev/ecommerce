@@ -9,6 +9,8 @@ urlpatterns = [
     #Card
     path('cart/',cart,name='cart'),
     path('add_to_cart/',add_to_cart,name='add_to_cart'),
+    path('change_quantity/',change_quantity,name='change_quantity'),
+    path('remove_card/',remove_card,name='remove_card'),
 
     #Wishlist
     path('add_wishlist/',add_wishlist,name='add_wishlist'),

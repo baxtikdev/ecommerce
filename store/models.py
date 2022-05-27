@@ -45,6 +45,7 @@ class Product(models.Model):
     def with_discount(self):
         if self.discount:
             return self.price*(1 - self.discount / 100)
+        return self.price
 
     @property
     def imageURL(self):
@@ -85,13 +86,17 @@ class Cart_products(models.Model):
 
     @property
     def add(self):
+        print('ADD',self.quantity)
         self.quantity = self.quantity + 1
         self.save()
+        print(self.quantity)
+        return self.quantity
 
     @property
     def sub(self):
         self.quantity = self.quantity - 1
         self.save()
+        return self.quantity
 
     def __str__(self):
         return f"{self.card.user.username} | {self.product.name} | {self.total}"

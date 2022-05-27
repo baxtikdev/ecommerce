@@ -37,7 +37,7 @@
 
 									<tbody>
                                         {% for p in products %}
-                                            <tr>
+                                            <tr id="remove_card{{ p.product_id }}">
                                                 <td class="product-col">
                                                     <div class="product">
                                                         <figure class="product-media">
@@ -47,7 +47,7 @@
                                                         </figure>
 
                                                         <h3 class="product-title">
-                                                            <a href="#">{{ p.product.name }}</a>
+                                                            <a href="{% url 'product_info' p.product_id %}">{{ p.product.name }}</a>
                                                         </h3><!-- End .product-title -->
                                                     </div><!-- End .product -->
                                                 </td>
@@ -55,15 +55,14 @@
                                                 <td class="quantity-col">
                                                     <div class="cart-product-quantity">
                                                         <div class="form-control" style="display: flex; justify-content: center;">
-                                                            <i style="cursor: pointer" class="icon-plus"></i>
-                                                            <span style="margin-right: 10px; margin-left: 10px">{{ p.quantity }}</span>
-                                                             <i style="cursor: pointer" class="icon-minus"></i>
+                                                            <i onclick="change_quantity({{ p.product_id }}, 'add',{{ p.product.with_discount }})" id="add_product" style="cursor: pointer" class="icon-plus"></i>
+                                                            <span id="quantity_product{{ p.product_id }}" style="margin-right: 10px; margin-left: 10px">{{ p.quantity }}</span>
+                                                             <i onclick="change_quantity({{ p.product_id }}, 'sub',{{ p.product.with_discount }})" id="sub_product" style="cursor: pointer" class="icon-minus"></i>
                                                         </div>
-{#                                                        <input type="number" class="form-control" value="{{ p.quantity }}" min="1" max="10" step="1" data-decimals="0" required>#}
-                                                    </div><!-- End .cart-product-quantity -->
+                                                    </div>
                                                 </td>
-                                                <td class="total-col">$ {{ p.summa }}</td>
-                                                <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
+                                                <td id="product_summa{{ p.product_id }}"  class="total-col">$ {{ p.summa }}</td>
+                                                <td onclick="remove_card({{ p.product_id }})" class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
                                             </tr>
                                         {% endfor %}
 									</tbody>
@@ -91,10 +90,6 @@
 
 	                				<table class="table table-summary">
 	                					<tbody>
-	                						<tr class="summary-subtotal">
-	                							<td>Subtotal:</td>
-	                							<td>$ {{ subtotal }}</td>
-	                						</tr><!-- End .summary-subtotal -->
 	                						<tr class="summary-shipping">
 	                							<td>Shipping:</td>
 	                							<td>&nbsp;</td>
@@ -137,12 +132,12 @@
 
 	                						<tr class="summary-total">
 	                							<td>Total:</td>
-	                							<td>$ {{ total }}</td>
+	                							<td id="total">$ {{ total }}</td>
 	                						</tr><!-- End .summary-total -->
 	                					</tbody>
 	                				</table><!-- End .table table-summary -->
 
-	                				<a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+	                				<a href="{% url 'checkout' %}" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
 	                			</div><!-- End .summary -->
 
 		            			<a href="category.html" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>

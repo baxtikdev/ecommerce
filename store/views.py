@@ -64,6 +64,26 @@ def add_to_cart(request):
     prod = [{'id':p.id, 'name':p.name, 'image':p.imageURL,'price':p.with_discount,'quantity':Cart_products.objects.get(card_id=cart.id,product_id=p.id).quantity} for p in cart.product.all()]
     return JsonResponse({'count':cart.product.all().count(),'products':prod})
 
+def change_quantity(request):
+    id = json.loads(request.body)['id']
+    action = json.loads(request.body)['action']
+    card_quantity = Cart_products.objects.get(card__user=request.user,product_id=id)
+    if action=='add':
+        card_quantity.add
+    elif action=='sub' and card_quantity.quantity>1:
+        card_quantity.sub
+    print(card_quantity.quantity,'************#############')
+    return JsonResponse({'status': card_quantity.quantity,'total':card_quantity.card.total})
+
+def remove_card(request):
+    id = json.loads(request.body)['id']
+    product = Product.objects.get(id=id)
+    card = Card.objects.get(user=request.user)
+    Cart_products.objects.get(card_id=card.id, product_id=id).delete()
+    card.product.remove(product)
+    card.save()
+    return JsonResponse({'status': "Ok"})
+
 def add_wishlist(request):
     id = json.loads(request.body)['id']
     try:

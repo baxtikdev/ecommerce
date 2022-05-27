@@ -152,3 +152,54 @@ function delete_wishlist (id){
         document.getElementById('product'+id).style.display = 'none'
     })
 }
+
+function remove_card(id){
+    url=`/remove_card/`
+    fetch(url,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRFToken':csrftoken,
+        },
+        body:JSON.stringify({
+            'id':id
+        })
+        })
+        .then((response)=>{
+        response.json().then((data) => {
+        })
+        document.getElementById('remove_card'+id).style.display = 'none'
+    })
+}
+
+function change_quantity(id, action, price){
+    url=`/change_quantity/`
+    fetch(url,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRFToken':csrftoken,
+        },
+        body:JSON.stringify({
+            'id':id,
+            'action':action,
+        })
+        })
+        .then((response)=>{
+        response.json().then((data) => {
+            let quantity = data['status']
+            if(action=="add"){
+                document.getElementById('quantity_product'+id).innerHTML = quantity
+                }
+            if(action=="sub"){
+                document.getElementById('quantity_product'+id).innerHTML = quantity
+                }
+            document.getElementById('product_summa'+id).innerHTML = quantity*price
+            document.getElementById('total').innerHTML = data['total']
+            return quantity
+
+        })
+
+
+    })
+}
