@@ -32,7 +32,12 @@ def register(request):
             User.objects.create_user(username=username,phone_number=phone,password=password1)
             user = authenticate(request,username=username,password=password1)
             if user:
-                code = Code.objects.create(user=user)
+                try:
+                    code = Code.objects.get(user=user)
+                    code.save()
+                except:
+                    code = Code.objects.create(user=user)
+
                 send_sms(code.number, user.phone_number)
                 request.session['pk'] = user.pk
                 return render(request,'auth/verify_sms.html')
