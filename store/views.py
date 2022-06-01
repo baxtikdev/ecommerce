@@ -2,8 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm,LoginForm
-from django.contrib.auth import authenticate,login,logout
 from .models import *
 import json
 
@@ -121,39 +119,9 @@ def category(request,id):
 def contact(request):
     return render(request, 'contact.html')
 
-def log_in(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(request,username=username,password=password)
-            if user:
-                login(request,user)
-                return redirect('index')
-    return render(request, 'auth/login.html')
+def about(request):
+    return render(request, 'about.html')
 
-def register(request):
-    if request.method == 'POST':
-        # form = RegistrationForm(request.POST)
-        # if form.is_valid():
-            # form.save()
-        try:
-            username = request.POST['username']
-            email = request.POST['email']
-            password1 = request.POST['password1']
-            password2 = request.POST['password2']
-        except:
-            return redirect('register')
-        if password2==password1:
-            User.objects.create_user(username=username,email=email,password=password1)
+def blog(request):
+    return render(request, 'blog-grid-3cols.html')
 
-            user = authenticate(request,username=username,password=password1)
-            if user:
-                login(request,user)
-                return redirect('index')
-    return render(request, 'auth/register.html',{})
-
-def log_out(request):
-    logout(request)
-    return redirect('log_in')

@@ -23,9 +23,6 @@ urlpatterns = [
     path('category/<int:id>/',category,name='category'),
     path('contact/',contact,name='contact'),
     path('checkout/',checkout,name='checkout'),
-
-    #Auth
-    path('log_in/',log_in,name='log_in'),
-    path('register/',register,name='register'),
-    path('log_out/',log_out,name='log_out'),
+    path('blog/',blog,name='blog'),
+    path('about/',about,name='about'),
 ]

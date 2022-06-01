@@ -62,27 +62,15 @@
             <div class="header-top">
                 <div class="container">
                     <div class="header-left">
-                        <a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a>
+                        <a><i class="icon-phone"></i>Call: +998 91 225 58 65</a>
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
 
                         <ul class="top-menu">
                             <li>
-                                <a href="#">Links</a>
+                                <a>Links</a>
                                 <ul>
-                                    <li>
-                                        <div class="header-dropdown">
-                                            <a href="#">English</a>
-                                            <div class="header-menu">
-                                                <ul>
-                                                    <li><a href="#">English</a></li>
-                                                    <li><a href="#">French</a></li>
-                                                    <li><a href="#">Spanish</a></li>
-                                                </ul>
-                                            </div><!-- End .header-menu -->
-                                        </div>
-                                    </li>
                                     {% if request.user.is_authenticated %}
                                         <li><b style="color: white">{{ request.user.username }}</b> <a href="{% url 'log_out' %}">Log out</a></li>
                                     {% else %}
@@ -111,7 +99,6 @@
 
                     <div class="header-center">
                         <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
-{#                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>#}
                             <form action="{% url 'search' %}" method="post">
                                 {% csrf_token %}
                                 <div class="header-search-wrapper search-wrapper-wide">
@@ -225,43 +212,10 @@
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li>
-                                    <a href="product.html" class="sf-with-ul">Product</a>
-
-                                    <div class="megamenu megamenu-sm">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-6">
-                                                <div class="menu-col">
-                                                    <div class="menu-title">Product Details</div><!-- End .menu-title -->
-                                                    <ul>
-                                                        <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
-                                                    </ul>
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-6 -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-sm -->
+                                    <a href="{% url 'blog' %}">Blog</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="sf-with-ul">Pages</a>
-
-                                    <ul>
-                                        <li><a href="dashboard.html">My Account</a></li>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="faq.html">FAQs</a></li>
-                                        <li><a href="404.html">Error 404</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="blog-grid-3cols.html">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                    <ul>
-                                        <li><a href="elements-buttons.html">Buttons</a></li>
-                                        <li><a href="elements-accordions.html">Accordions</a></li>
-                                    </ul>
+                                    <a href="{% url 'about' %}">About</a>
                                 </li>
                                 <li>
                                     <a href="{% url 'contact' %}">Contact</a>
@@ -288,7 +242,7 @@
 	            	<div class="row">
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget widget-about">
-	            				<img src="assets/images/demos/demo-3/logo-footer.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<img src="{% static 'assets/images/demos/demo-3/logo-footer.png' %}" class="footer-logo" alt="Footer Logo" width="105" height="25">
 	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
 
 	            				<div class="widget-call">
@@ -344,15 +298,6 @@
 	            	</div><!-- End .row -->
 	            </div><!-- End .container -->
 	        </div><!-- End .footer-middle -->
-
-	        <div class="footer-bottom">
-	        	<div class="container">
-	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
-	        		<figure class="footer-payments">
-	        			<img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
-	        		</figure><!-- End .footer-payments -->
-	        	</div><!-- End .container -->
-	        </div><!-- End .footer-bottom -->
         </footer><!-- End .footer -->
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
@@ -364,9 +309,10 @@
         <div class="mobile-menu-wrapper">
             <span class="mobile-menu-close"><i class="icon-close"></i></span>
 
-            <form action="#" method="get" class="mobile-search">
+            <form action="{% url 'search' %}" method="post" class="mobile-search">
+                {% csrf_token %}
                 <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <input type="search" name="search" class="form-control" id="mobile-search" placeholder="Search in..." required>
                 <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
             </form>
 
@@ -387,31 +333,21 @@
                                 <a href="index.html">Home</a>
                             </li>
                             <li>
-                                <a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a>
-                            </li>
-                            <li>
-                                <a href="#">Pages</a>
+                                <a>Pages</a>
                                 <ul>
                                     <li>
-                                        <a href="about.html">About</a>
-
-                                        <ul>
-                                            <li><a href="about.html">About 01</a></li>
-                                            <li><a href="about-2.html">About 02</a></li>
-                                        </ul>
+                                        <a href="{% url 'about' %}">About</a>
                                     </li>
                                     <li>
-                                        <a href="contact.html">Contact</a>
-
-                                        <ul>
-                                            <li><a href="contact.html">Contact 01</a></li>
-                                            <li><a href="contact-2.html">Contact 02</a></li>
-                                        </ul>
+                                        <a href="{% url 'contact' %}">Contact</a>
                                     </li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="faq.html">FAQs</a></li>
-                                    <li><a href="404.html">Error 404</a></li>
-                                    <li><a href="coming-soon.html">Coming Soon</a></li>
+                                    <li>
+                                        {% if request.user.is_authenticated %}
+                                            <a href="{% url 'log_out' %}">Log out</a>
+                                        {% else %}
+                                            <a href="{% url 'log_in' %}">Login</a>
+                                        {% endif %}
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -420,17 +356,9 @@
                 <div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel" aria-labelledby="mobile-cats-link">
                     <nav class="mobile-cats-nav">
                         <ul class="mobile-cats-menu">
-                            <li><a class="mobile-cats-lead" href="#">Daily offers</a></li>
-                            <li><a class="mobile-cats-lead" href="#">Gift Ideas</a></li>
-                            <li><a href="#">Beds</a></li>
-                            <li><a href="#">Lighting</a></li>
-                            <li><a href="#">Sofas & Sleeper sofas</a></li>
-                            <li><a href="#">Storage</a></li>
-                            <li><a href="#">Armchairs & Chaises</a></li>
-                            <li><a href="#">Decoration </a></li>
-                            <li><a href="#">Kitchen Cabinets</a></li>
-                            <li><a href="#">Coffee & Tables</a></li>
-                            <li><a href="#">Outdoor Furniture </a></li>
+                            {% for c in categories %}
+                                <li><a href="{% url 'category' c.id %}">{{ c.name }}</a></li>
+                            {% endfor %}
                         </ul><!-- End .mobile-cats-menu -->
                     </nav><!-- End .mobile-cats-nav -->
                 </div><!-- .End .tab-pane -->

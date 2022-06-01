@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'user.CustomUser'
 
 # Application definition
 
@@ -41,8 +42,10 @@ INSTALLED_APPS = [
     # created apps
     'store',
     'billing',
+    'user',
 
     #installed apps
+    "crispy_forms",
 
 ]
 

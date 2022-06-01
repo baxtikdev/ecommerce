@@ -1,0 +1,190 @@
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,800,700,600,300);
+
+/*basic reset*/
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  /*Image only BG fallback*/
+  background: #fff;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+}
+/*form styles*/
+#msform {
+  width: 500px;
+  margin: 50px auto;
+  text-align: center;
+  position: relative;
+}
+#msform fieldset {
+  background: #fff;
+  border: 0 none;
+  border-radius: 10px;
+  /*box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);*/
+  padding: 20px 30px;
+  font-family: "Open Sans", sans-serif;
+  box-sizing: border-box;
+  width: 80%;
+  margin: 0 10%;
+
+  /*stacking fieldsets above each other*/
+  position: absolute;
+}
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+  display: none;
+  font-family: "Open Sans", sans-serif;
+}
+/*inputs*/
+#msform input,
+#msform textarea {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  color: #000;
+  font-size: 13px;
+  background: #fff;
+}
+/*buttons*/
+#msform .action-button {
+  width: 100px;
+  background: #2fc877;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 40px;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 10px 5px;
+}
+
+#msform .previous {
+  width: 100px;
+  background: #545153;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 40px;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 10px 5px;
+}
+#msform .action-button:hover,
+#msform .action-button:focus {
+  background: #52ba7e;
+}
+
+#msform .previous:hover,
+#msform .previous:focus {
+  background: #353334;
+}
+/*headings*/
+.h2 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+  color: #2c3e50;
+  margin: 10px 0;
+}
+
+.h3 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.h1 {
+  margin: 40px 0;
+  font-weight: 800;
+  font-size: 48px;
+  font-family: "Open Sans", sans-serif;
+  color: #2fc877;
+}
+
+/*logo*/
+
+.powered {
+  padding-top: 20px;
+  margin-bottom: 10px;
+  clear: both;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 10px;
+  color: #292929;
+}
+.logo {
+  margin: 0 2px;
+  width: 40px;
+  height: auto;
+}
+
+label {
+  @include transition-property(top, opacity);
+  @include transition-duration(0.2s);
+
+  // browsers (ie8/9) that do not support placeholder
+  // text on input will see labels on page load
+  position: absolute;
+  top: 0.5em;
+  font-size: 0.75em;
+  font-weight: bold;
+  color: $lbl-color;
+  padding-left: 1.333333em;
+  opacity: 1;
+
+  &.valid {
+    // I'm using this class for server side validation in
+    // PHP, but I am also using it as a hook for styling
+
+    opacity: 1;
+    top: $top;
+    color: $lbl-noFocus !important;
+  }
+  &.hasValue {
+    top: $top;
+    opacity: 1;
+  }
+  &.noFocus {
+    color: $lbl-noFocus !important;
+  }
+  &.hasFocus {
+    color: $lbl-color !important;
+  }
+}
+input,
+textarea,
+button {
+  width: 100%;
+  padding: 1.5em 1em 0.5em;
+  border: none;
+  font-size: 1em;
+  border-radius: 2px;
+  background: #f5f5f5;
+  resize: none;
+}
+
+input {
+  margin-bottom: 0.5em;
+}
+
+button {
+  padding: 1em;
+  width: 50%;
+  opacity: 1;
+  color: lighten($btn-color, 50%);
+  text-shadow: 0px 1px 0px darken($btn-color, 50%);
+}
