@@ -38,7 +38,11 @@ def product_info(request,id):
 @login_required(login_url="log_in")
 def cart(request):
     cart_products = Cart_products.objects.filter(card__user=request.user)
-    cart = Card.objects.get(user=request.user)
+    try:
+        cart = Card.objects.get(user=request.user)
+    except:
+        cart = Card.objects.create(user=request.user)
+
     return render(request, 'cart.html',{"products":cart_products,'total':cart.total,'subtotal':sum(cart_products.values_list('total',flat=True))})
 
 def add_to_cart(request):

@@ -8,30 +8,31 @@
 </head>
 <body>
 
-<form id="msform">
-      <fieldset>
-        <h2 class="h2">SMS Validation</h2>
-        <h3 class="h3">Enter your phone number below </h3>
-        <!--<label>Name</label>-->
-        <input maxlength="5" type="text" name="cpass" placeholder="Enter mobile number" />
-        <input type="button" name="next" class="next action-button" value="Send" />
-      </fieldset>
+    <form method="post" action="{% url 'verify' %}" id="msform">
+        {% csrf_token %}
+    {#      <fieldset>#}
+    {#        <h2 class="h2">SMS Validation</h2>#}
+    {#        <h3 class="h3">Enter your phone number below</h3>#}
+    {#        <!--<label>Name</label>-->#}
+    {#        <input type="number" maxlength="5" name="number" placeholder="Enter mobile number" />#}
+    {#        <input type="button" name="next" class="next action-button" value="Send" />#}
+    {#      </fieldset>#}
 
-      <fieldset>
-        <h2 class="h2">We sent your code</h2>
-        <h3 class="h3">Enter the confirmation code below</h3>
-        <input type="text" name="twitter" placeholder="Enter confirmation code" />
+          <fieldset>
+            <h2 class="h2">We sent your code</h2>
+            <h3 class="h3">Enter the confirmation code below</h3>
+            <input maxlength="5" type="text" name="number" placeholder="Enter confirmation code" required />
 
-        <input type="button" name="go back" class="previous  " value="Go back" />
-        <input type="button" name="Submit" class="next action-button" value="Submit" />
-      </fieldset>
+{#            <input href="{% url 'register' %}" type="button" name="go back" class="previous" value="Go back" />#}
+            <input  type="submit" name="Submit" class="next action-button" value="Submit" />
+          </fieldset>
 
-    <fieldset>
-        <h1 class="h1">Nice Job!</h1>
-        <h3 class="h3">Your finished</h3>
-        <input type="button" name="previous" class="next action-button" value="Close" />
-      </fieldset>
-</form>
+    {#    <fieldset>#}
+    {#        <h1 class="h1">Nice Job!</h1>#}
+    {#        <h3 class="h3">Your finished</h3>#}
+    {#        <input type="button" name="previous" class="next action-button" value="Close" />#}
+    {#      </fieldset>#}
+    </form>
 
 <!-- jQuery -->
 <script src="http://thecodeplayer.com/uploads/js/jquery-1.9.1.min.js" type="text/javascript"></script>
