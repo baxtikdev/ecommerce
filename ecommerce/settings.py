@@ -32,6 +32,7 @@ AUTH_USER_MODEL = 'user.CustomUser'
 # Application definition
 
 INSTALLED_APPS = [
+    # 'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,11 +44,21 @@ INSTALLED_APPS = [
     'store',
     'billing',
     'user',
+    'dashboard',
 
     #installed apps
     "crispy_forms",
 
 ]
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "flatly",
+    "dark_mode_theme": "darkly",
+}
+
+JAZZMIN_SETTINGS = {
+    "show_ui_builder": True
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

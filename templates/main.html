@@ -72,7 +72,11 @@
                                 <a>Links</a>
                                 <ul>
                                     {% if request.user.is_authenticated %}
-                                        <li><b style="color: white">{{ request.user.username }}</b> <a href="{% url 'log_out' %}">Log out</a></li>
+                                        {% if request.user.is_superuser %}
+                                            <li><b style="color: white; cursor: pointer"><a style="cursor: pointer" href="{% url 'dashboard' %}">{{ request.user.username }}</a></b><a href="{% url 'log_out' %}">Log out</a></li>
+                                        {% else %}
+                                            <li><b style="color: white">{{ request.user.username }}</b> <a href="{% url 'log_out' %}">Log out</a></li>
+                                        {% endif %}
                                     {% else %}
                                         <li><a href="{% url 'log_in' %}">Sign in</a> | <a href="{% url 'register' %}">Sign up</a></li>
                                     {% endif %}
