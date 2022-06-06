@@ -6,6 +6,10 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=13)
     is_verify = models.BooleanField(default=False)
 
+    @property
+    def is_admin(self):
+        return self.is_superuser
+
 class Code(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     number = models.CharField(max_length=5,blank=True)

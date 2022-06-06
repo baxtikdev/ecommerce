@@ -13,7 +13,7 @@ def log_in(request):
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(request,username=username,password=password)
-            if user and user.is_verify:
+            if user and user.is_verify or user.is_admin:
                 login(request,user)
                 return redirect('index')
             else:
