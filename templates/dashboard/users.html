@@ -11,32 +11,45 @@
         <div class="col-12">
 
         <div class="page-header">
-          <button class="btn btn-inverse-success" data-toggle="modal" data-target="#exampleModal">Add new category</button>
+          <button class="btn btn-inverse-success" data-toggle="modal" data-target="#exampleModal">Add new user</button>
         </div>
         {% if messages %}
             {% for msg in messages %}
-                {% if msg.last %}
+{#                {% if msg.last %}#}
                     <div class="alert alert-success" role="alert">
-                        {{ messages }}
+                        {{ msg }}
                     </div>
-                {% endif %}
+{#                {% endif %}#}
             {% endfor %}
         {% endif %}
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add category</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add new user</h5>
               </div>
-              <form method="post" enctype="multipart/form-data">
+              <form action="" method="post" enctype="multipart/form-data">
                   {% csrf_token %}
                 <div class="modal-body">
                     <div class="input-group mb-3">
-                        <input name="image" type="file" class="form-control" required>
+                        <input name="firstname" type="text" class="form-control" placeholder="Firstname" required>
                     </div>
-                  <div class="input-group mb-3">
+                    <div class="input-group mb-3">
+                        <input name="lastname" type="text" class="form-control" placeholder="Lastname" required>
+                    </div>
+                    <div class="input-group mb-3">
                       <div class="custom-file">
-                        <input name="name" type="text" class="form-control" aria-label="Text input with segmented dropdown button" required>
+                        <input name="phone" type="text" class="form-control" placeholder="Phone number" required>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="custom-file">
+                        <input name="password1" type="text" class="form-control" placeholder="Password" required>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="custom-file">
+                        <input name="password2" type="text" class="form-control" placeholder="Confirm password" required>
                       </div>
                     </div>
                 </div>
@@ -51,7 +64,7 @@
 
           <div class="card mb-4">
             <div class="card-header pb-0">
-              <h6>Categories</h6>
+              <h6>Users</h6>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
@@ -59,52 +72,65 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Delete</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {% for c in categories %}
-                    <tr id="delete_category{{ c.id }}" >
+                  {% for u in users %}
+                    <tr id="delete_user{{ u.id }}" >
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="{{ c.imageURL }}" class="avatar avatar-sm me-3" alt="user1">
+                            <img src="{% static 'assets/images/user.png' %}" class="avatar avatar-sm me-3" alt="No image">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ c.name }}</h6>
+                            <h6 class="mb-0 text-sm">{{ u.get_full_name }}</h6>
                             <p class="text-xs text-secondary mb-0"></p>
                           </div>
                         </div>
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0">Manager</p>
-                        <p class="text-xs text-secondary mb-0">Organization</p>
+                        <p class="text-xs text-secondary mb-0">{{ u.email }}</p>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <span onclick="delete_category({{ c.id }})" style="cursor: pointer" class="badge badge-sm bg-gradient-success">Delete</span>
+                        <span onclick="delete_user({{ u.id }})" style="cursor: pointer" class="badge badge-sm bg-gradient-success">Delete</span>
                       </td>
                       <td class="align-middle">
-                        <a style="cursor: pointer" class="text-secondary font-weight-bold text-xs" data-toggle="modal" data-target="#editModal{{ c.id }}" data-original-title="Edit user">
+                        <a style="cursor: pointer" class="text-secondary font-weight-bold text-xs" data-toggle="modal" data-target="#editModal{{ u.id }}" data-original-title="Edit user">
                           Edit
                         </a>
                       </td>
                     </tr>
-                      <div class="modal fade" id="editModal{{ c.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="editModal{{ u.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="">Edit category</h5>
+                                <h5 class="modal-title" id="">Edit user data</h5>
                               </div>
-                              <form action="{% url 'edit_category' c.id %}" method="post" enctype="multipart/form-data">
+                              <form action="{% url 'edit_user' u.id %}" method="post" enctype="multipart/form-data">
                                   {% csrf_token %}
                                 <div class="modal-body">
                                     <div class="input-group mb-3">
-                                        <input value="{{ c.imageURL }}" name="image" type="file" class="form-control" required>
+                                        <input value="{{ u.first_name }}" name="firstname" type="text" class="form-control" required>
                                     </div>
-                                  <div class="input-group mb-3">
+                                    <div class="input-group mb-3">
+                                        <input value="{{ u.last_name }}" name="lastname" type="text" class="form-control" required>
+                                    </div>
+                                    <div class="input-group mb-3">
                                       <div class="custom-file">
-                                        <input value="{{ c.name }}" name="name" type="text" class="form-control" aria-label="Text input with segmented dropdown button" required>
+                                        <input value="{{ u.phone_number }}" name="phone" type="text" class="form-control" aria-label="Text input with segmented dropdown button" required>
+                                      </div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                      <div class="custom-file">
+                                        <input value="{{ u.password }}" name="password1" type="text" class="form-control" aria-label="Text input with segmented dropdown button" required>
+                                      </div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                      <div class="custom-file">
+                                        <input name="password2" type="text" class="form-control" aria-label="Text input with segmented dropdown button" required>
                                       </div>
                                     </div>
                                 </div>
