@@ -1,18 +1,30 @@
 import json
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
+
+from .decorators import adminonly
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from user.models import CustomUser
 from django.contrib import messages
 
 from dashboard.forms import Add_category
-from store.models import Category
+from store.models import Category,Product
 
+@adminonly
 def dashboard(request):
     return render(request,'dashboard/dashboard.html')
 
+@adminonly
 def add_product(request):
-    return render(request, 'dashboard/add_product.html')
+    if request.method=='POST':
+        pass
+    products = Product.objects.all().order_by('-id')
+    categories = Category.objects.all().order_by('id')
+    return render(request, 'dashboard/add_product.html',{'products':products,'categories':categories,'size':[i[0] for i in products.first().choice][1:]})
 
+@adminonly
 def add_category(request):
     if request.method =='POST':
         name = request.POST['name']
@@ -29,6 +41,7 @@ def delete_category(request):
     category.delete()
     return JsonResponse({'status':'ok'})
 
+@adminonly
 def edit_category(request,id):
     if request.method=='POST':
         name = request.POST['name']
@@ -39,6 +52,7 @@ def edit_category(request,id):
         category.save()
         return redirect('add_category')
 
+@adminonly
 def users(request):
     if request.method=="POST":
         firstname = request.POST['firstname']
@@ -64,15 +78,21 @@ def delete_user(request):
     except:
         return JsonResponse({'status': 'no'})
 
+@adminonly
 def edit_user(request,id):
     if request.method=='POST':
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
         phone = request.POST['phone']
+        old_password = request.POST['old_password']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
+        user = CustomUser.objects.get(id=int(id))
+
+        # Passwordni change qilish
+        # if user.check_password(old_password): 1-usul
+        # if user.password == make_password(old_password):# 2-usul
         if password2 == password1:
-            user = CustomUser.objects.get(id=int(id))
             try:
                 user.first_name = firstname
                 user.last_name = lastname
@@ -86,3 +106,4 @@ def edit_user(request,id):
             return redirect('users')
         messages.error(request, 'Kiritilgan parol mos kelmadi')
         return redirect('users')
+
