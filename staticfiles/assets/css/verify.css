@@ -1,0 +1,82 @@
+body,
+html {
+  height: 100vh;
+  font-family: "Inconsolata", monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*
+.container {
+  border: 1px solid red;
+}
+*/
+.result {
+  text-align: center;
+  color: orange;
+  font-size: 2em;
+  font-weight: bold;
+  margin-top: 1.5em;
+  display: block;
+}
+
+input {
+  border: 0;
+  border-bottom: 2px solid #c0c0c0;
+  outline: 0;
+  color: #111111;
+  width: 37px;
+  padding: 0 5px;
+  margin-right: 10px;
+  text-align: center;
+  font-size: 3em;
+  cursor: pointer;
+  will-change: border;
+  transition: border 0.3s ease-in-out;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+  margin: 0;
+}
+
+input:focus {
+  border: 0;
+  border-bottom: 2px solid #ff6200;
+}
+
+input:disabled {
+  background: #fff;
+}
+
+input:last-child {
+  margin-right: 0;
+}
+
+.paintOrangeLine {
+  border: 0;
+  border-bottom: 2px solid #ff6200;
+}
+
+button {
+  background: #ff6200;
+  color: whiteSmoke;
+  padding: 1em 2em;
+  margin-top: 2em;
+  border: 0;
+  width: 100%;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  will-change: opacity;
+}
+
+button:hover {
+  opacity: 0.8;
+}
